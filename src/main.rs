@@ -21,7 +21,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
     ];
 
     let output = prompt_deepseek(messages).await?;
-    println!("{:?}", output.choices[0].message.content);
-
+    termimad::print_line(&output.choices[0].message.content);
     Ok(())
 }
