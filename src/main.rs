@@ -6,7 +6,8 @@ use deepseek::*;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<String> = env::args().collect();
+    let mut args: Vec<String> = env::args().collect();
+    args.remove(0);
     let query = args.join(" ");
 
     let messages = vec![
@@ -20,7 +21,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         },
     ];
 
-    let output = prompt_deepseek(messages).await?;
-    termimad::print_line(&output.choices[0].message.content);
+    process_stream(messages).await?;
+
     Ok(())
 }
